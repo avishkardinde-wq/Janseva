@@ -1,0 +1,256 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* JanSeva Design System - Government Scheme Navigator */
+/* Accessible, multilingual, citizen-first design */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap');
+
+@layer base {
+  :root {
+    /* Core Background & Text */
+    --background: 45 30% 97%;
+    --foreground: 215 50% 15%;
+
+    /* Card surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 215 50% 15%;
+
+    /* Popover */
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 50% 15%;
+
+    /* Primary - Deep Indigo (Government Trust) */
+    --primary: 210 60% 25%;
+    --primary-foreground: 45 30% 97%;
+
+    /* Secondary - Soft Green (Maharashtra/Growth) */
+    --secondary: 145 40% 45%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Accent - Saffron (Indian Identity) */
+    --accent: 30 100% 55%;
+    --accent-foreground: 215 50% 15%;
+
+    /* Muted surfaces */
+    --muted: 45 20% 92%;
+    --muted-foreground: 215 30% 40%;
+
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders & inputs */
+    --border: 215 25% 85%;
+    --input: 215 25% 85%;
+    --ring: 210 60% 25%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens */
+    --saffron: 30 100% 55%;
+    --saffron-light: 35 100% 70%;
+    --indigo-deep: 210 60% 20%;
+    --indigo-light: 210 50% 35%;
+    --green-maharashtra: 145 40% 40%;
+    --green-light: 145 35% 55%;
+    --cream: 45 30% 97%;
+    --cream-dark: 45 20% 90%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(210 60% 22%) 0%, hsl(210 50% 35%) 50%, hsl(145 40% 40%) 100%);
+    --gradient-saffron: linear-gradient(135deg, hsl(30 100% 55%) 0%, hsl(35 100% 65%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(45 30% 98%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(30 100% 55%) 0%, hsl(25 95% 50%) 100%);
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px hsl(215 50% 15% / 0.08);
+    --shadow-md: 0 4px 12px hsl(215 50% 15% / 0.1);
+    --shadow-lg: 0 8px 30px hsl(215 50% 15% / 0.12);
+    --shadow-card: 0 4px 20px hsl(210 60% 25% / 0.08);
+    --shadow-card-hover: 0 12px 40px hsl(210 60% 25% / 0.15);
+
+    /* Sidebar */
+    --sidebar-background: 210 60% 25%;
+    --sidebar-foreground: 45 30% 97%;
+    --sidebar-primary: 30 100% 55%;
+    --sidebar-primary-foreground: 215 50% 15%;
+    --sidebar-accent: 210 50% 35%;
+    --sidebar-accent-foreground: 45 30% 97%;
+    --sidebar-border: 210 50% 30%;
+    --sidebar-ring: 30 100% 55%;
+  }
+
+  .dark {
+    --background: 215 50% 10%;
+    --foreground: 45 30% 95%;
+
+    --card: 215 45% 15%;
+    --card-foreground: 45 30% 95%;
+
+    --popover: 215 45% 15%;
+    --popover-foreground: 45 30% 95%;
+
+    --primary: 30 100% 55%;
+    --primary-foreground: 215 50% 10%;
+
+    --secondary: 145 35% 50%;
+    --secondary-foreground: 215 50% 10%;
+
+    --accent: 30 90% 60%;
+    --accent-foreground: 215 50% 10%;
+
+    --muted: 215 40% 20%;
+    --muted-foreground: 45 20% 70%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 215 35% 25%;
+    --input: 215 35% 25%;
+    --ring: 30 100% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Poppins', system-ui, sans-serif;
+  }
+
+  /* Marathi/Devanagari text */
+  .font-marathi {
+    font-family: 'Tiro Devanagari Marathi', 'Noto Sans Devanagari', serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  /* Hero section styling */
+  .hero-gradient {
+    background: var(--gradient-hero);
+  }
+
+  /* Saffron accent stripe */
+  .saffron-stripe {
+    background: var(--gradient-saffron);
+  }
+
+  /* Card with subtle gradient */
+  .card-gradient {
+    background: var(--gradient-card);
+  }
+
+  /* Glass morphism effect */
+  .glass {
+    @apply bg-white/80 backdrop-blur-md;
+  }
+
+  /* Voice button pulse animation */
+  .voice-pulse {
+    animation: pulse-ring 1.5s ease-out infinite;
+  }
+
+  @keyframes pulse-ring {
+    0% {
+      box-shadow: 0 0 0 0 hsl(var(--accent) / 0.5);
+    }
+    70% {
+      box-shadow: 0 0 0 12px hsl(var(--accent) / 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 hsl(var(--accent) / 0);
+    }
+  }
+
+  /* Subtle float animation for cards */
+  .float-subtle {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  /* Category badge colors */
+  .badge-education {
+    @apply bg-blue-100 text-blue-800 border-blue-200;
+  }
+  .badge-health {
+    @apply bg-red-100 text-red-800 border-red-200;
+  }
+  .badge-farmers {
+    @apply bg-green-100 text-green-800 border-green-200;
+  }
+  .badge-women {
+    @apply bg-pink-100 text-pink-800 border-pink-200;
+  }
+  .badge-employment {
+    @apply bg-purple-100 text-purple-800 border-purple-200;
+  }
+  .badge-seniors {
+    @apply bg-amber-100 text-amber-800 border-amber-200;
+  }
+
+  /* Accessible focus states */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background;
+  }
+
+  /* Large touch targets for rural users */
+  .touch-target {
+    @apply min-h-[48px] min-w-[48px];
+  }
+}
+
+@layer utilities {
+  /* Text gradients */
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+  }
+
+  .text-gradient-saffron {
+    background: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(35 100% 45%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Shimmer loading effect */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 0%,
+      hsl(var(--muted-foreground) / 0.1) 50%,
+      hsl(var(--muted)) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+}
