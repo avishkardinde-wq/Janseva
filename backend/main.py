@@ -292,37 +292,33 @@ def detect_language(text: str, preferred_lang: Optional[str] = None) -> str:
 async def text_to_speech(text: str, lang: str) -> bytes:
     try:
         from gtts import gTTS
-        import re
+        import io
 
-        # ---- SANITIZE TEXT ----
-        if lang in ["hi", "mr"]:
-            text = text.replace("₹", "रुपये ")
-        else:
-            text = text.replace("₹", "rupees ")
+        # Sanitize text for TTS
+        text = sanitize_for_tts(text, lang)
 
-        text = re.sub(r"[•●▪–—]", " ", text)
-        text = re.sub(r"[^\w\s.,]", " ", text)
-        text = re.sub(r"\s+", " ", text).strip()
+        # Map languages to gTTS codes
+        language_map = {
+            "en": "en",
+            "hi": "hi",
+            "mr": "mr"
+        }
 
-        # ---- gTTS LANGUAGE FIX ----
-        # Marathi is NOT supported → use Hindi voice
-        tts_lang = "hi" if lang in ["hi", "mr"] else "en"
+        tts_lang = language_map.get(lang, "en")
 
-        tts = gTTS(
-            text=text,
-            lang=tts_lang,
-            slow=False
-        )
-
-        fp = io.BytesIO()
-        tts.write_to_fp(fp)
-        fp.seek(0)
-        return fp.read()
+        # Generate TTS
+        tts = gTTS(text=text, lang=tts_lang, slow=False)
+        
+        # Save to bytes
+        audio_buffer = io.BytesIO()
+        tts.write_to_fp(audio_buffer)
+        audio_buffer.seek(0)
+        
+        return audio_buffer.getvalue()
 
     except Exception as e:
         logger.error(f"TTS error: {e}")
-        raise HTTPException(status_code=500, detail="Text-to-speech conversion failed")
-
+        raise HTTPException(status_code=500, detail="Text-to-speech failed")
 import re
 
 def sanitize_for_tts(text: str, lang: str) -> str:
